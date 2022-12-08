@@ -66,7 +66,7 @@
 			<div v-if="error">{{ error }}</div>
 			<div class="flex flex-col justify-center items-center mt-2">
 				<p class=" mt-2">Don't Have An Account?</p>
-				<RouterLink class="text-blue-800" to="/register">Click Here!</RouterLink>
+				<RouterLink class="text-blue-800" to="/register">Register Now</RouterLink>
 			</div>
         </div>
 	</form>

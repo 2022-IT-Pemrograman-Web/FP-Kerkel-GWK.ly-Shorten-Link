@@ -1,8 +1,18 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
+// const app = express();
 const db = require("./firestore");
 const short_collection = db.collection("shorten_test");
+
+// import { getFirestore, query, collection, doc, onSnapshot, addDoc, deleteDoc, updateDoc, where, connectFirestoreEmulator, increment, getDocs, getDoc } from "firebase/firestore";
+// import { adminAuth } from "../config/database.js"
+// import { db } from "./firestore.js"
+// import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+// import express from 'express'
+
+const app = express()
+
+
 
 app.use(express.json());
 app.use(cors());
@@ -46,7 +56,7 @@ app.get("/shorts/:short", (req, res) => {
   let shorts = [];
   try {
     short_collection
-      .where("short", "==", short_params)
+      // .where("short", "==", short_params)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -84,10 +94,15 @@ app.delete("/shorts/:id", (req, res) => {
 })
 
 app.post("/shorts/", (req, res) => {
+  const real = req.body.real_link
+  const random = req.body.random_link
+  console.log(real, random)
     try{
         short_collection.add({
-            short:req.body.short,
-            full:req.body.full
+          full : real,
+          short : random,
+            // short:req.body.short,
+            // full:req.body.full
         })
         res.send({
             message: "Data telah ditambahkan."

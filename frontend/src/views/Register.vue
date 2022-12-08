@@ -64,6 +64,10 @@
               REGISTER
             </button>
             <div v-if="error">{{ error }}</div>
+            <div class="flex flex-col justify-center items-center mt-2">
+				<p class=" mt-2">Already Have An Account?</p>
+				<RouterLink class="text-blue-800" to="/">Login Now</RouterLink>
+			</div>
           </div>
         </form>
       </div>
