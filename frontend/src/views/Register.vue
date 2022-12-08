@@ -2,7 +2,7 @@
   <div
     class="
     rounded-lg
-      bg-gray-800
+      bg-gray-900
       w-full
       items-center
       lg:w-5/12
