@@ -128,7 +128,7 @@
           >
             <li>
               <a
-                href="#"
+                href="/home"
                 class="
                   block
                   py-2
@@ -137,7 +137,7 @@
                   text-white
                   bg-green-700
                   rounded
-                  md:bg-transparent md:text-green-700 md:p-0
+                  md:bg-transparent md:text-emerald-400 md:p-0
                   dark:text-white
                 "
                 aria-current="page"
@@ -146,7 +146,7 @@
             </li>
             <li>
               <a
-                href="#"
+                href="/about"
                 class="
                   block
                   py-2
@@ -172,7 +172,12 @@
         </div>
       </div>
     </nav>
+    
+    <!-- <div class="rounded-full">
+    <h1 style="font-family: Montserrat" class="max-h-96 text-5xl font-bold mt-0 mb-6 text-center text-emerald-400 py-20 px-6">OUR TEAM</h1>
+    </div> -->
     <div>
+      <h1 style="font-family: Georgia" class="max-h-96 text-5xl font-bold mt-0 mb-6 text-center text-emerald-400 py-20 px-6">GWK.ly</h1>
       <div
         class="
           rounded-lg
@@ -180,7 +185,8 @@
           w-full
           items-center
           lg:w-5/12
-          my-44
+          mt-auto
+          mb-20
           mx-auto
           xl:p-10
           lg:p-8
@@ -189,7 +195,7 @@
           justify-center
           lg:flex-row
           hover:shadow-md
-          border border-green-800
+          border border-emerald-400
         "
       >
         <section
@@ -206,7 +212,8 @@
           "
         >
           <h1 class="text-3xl text-center font-bold">SHORT YOUR LINK</h1>
-          <br />
+          <br/>
+          <br/>
           <form id="new-todo-form" @submit.prevent="addTodo">
             <input
               class="
@@ -225,7 +232,7 @@
               name="content"
               id="content"
               placeholder="Input Your Link"
-              v-model="real_link"
+              v-model="full"
             />
             <!-- <input
               class="
@@ -255,9 +262,11 @@
               GO
             </button>
           </form>
-          <br />
+          <br/>
+          <br/>
+          <br/>
           <section class="todo-list">
-            <h1 class="text-3xl text-center font-bold">YOUR CUSTOM LINK :</h1>
+            <h1 class="text-3xl text-center font-bold">YOUR SHORTEN LINK :</h1>
             <div class="list" id="todo-list">
               <br/>
               <div
@@ -266,11 +275,18 @@
                 :key="todo"
               >
               <br/>
-                <div class="todo-content">
-                  http://localhost:5731/{{ todo.short }}
+                <div class="todo-content text-green-400">
+                  http://GWK.ly:5173/{{ todo.short }}
                 </div>
-
-                <div
+                <div class="todo-content text-red-400">
+                  {{ todo.full }}
+                </div>
+                <!-- <div class="todo-content">
+                  <a href="http://localhost:5731/{{ todo.short }}">http://localhost:5731/{{todo.short}}</a>
+                  <a href="http://localhost:5731/=@model{{ todo.short }}">http://localhost:5731/{{todo.short}}</a>
+                </div> -->
+                <br/>
+                <div 
                   class="flex justify-center w-full bg-red-700 rounded-lg"
                   type="delete"
                   value="SUBMIT"
@@ -279,7 +295,74 @@
                     Delete
                   </button>
                 </div>
+                <br/>
+                <div
+                  class="flex justify-center w-full bg-yellow-500 rounded-lg"
+                  type="delete"
+                  value="SUBMIT"
+                >
+                  <button class="delete" @click="todo.edit=!todo.edit">
+                    Edit
+                  </button>
+                </div>
+                <br/>
+
+                <div v-if="todo.edit">
+                  <form id="new-todo-form" @submit.prevent="addTodo">
+                    <input
+                      class="
+                      w-full
+                      focus:border-green-800 focus:ring-1 focus:ring-green-800 focus
+                      outline-none
+                      text-white
+                      placehorder
+                      rounded-lg
+                      pl-4
+                      py-2
+                      mb-4
+                      " 
+                      type="text"
+                      required
+                      name="content"
+                      id="content"
+                      placeholder="Input Your New Link"
+                      v-model="new_real_link"
+            />
+            <!-- <input
+              class="
+                w-full
+                focus:border-green-800 focus:ring-1 focus:ring-green-800 focus
+                outline-none
+                text-white
+                placehorder
+                rounded-lg
+                pl-4
+                py-2
+                mb-4
+              "
+              type="text"
+              required
+              name="content"
+              id="content"
+              placeholder="Input Your Name"
+              v-model="input_content2"
+            /> -->
+
+                  <button @click="edit(new_real_link, todo.id)"
+                  class="w-full bg-green-700 rounded-lg"
+                  type="submit"
+                  value="SUBMIT"
+                  >
+                  GO
+                  </button>
+                  </form>
+                </div>
+
+              <div 
+              class="flex justify-center w-full text-emerald-400">
+              <p>=================================================</p>
               </div>
+            </div>
             </div>
           </section>
         </section>
@@ -322,7 +405,10 @@ export default {
     return {
       lists: [],
       name: "goan",
-      real_link: "",
+      full: "",
+      edit: false,
+      new_real_link:"",
+      // custom_path: "",
     };
   },
   methods: {
@@ -332,7 +418,7 @@ export default {
       try {
         await axios.post ("http://localhost:3000/shorts/",{
           random_link: r,
-          real_link: this.real_link
+          full: this.full
         })
          
         // // await axios.post("http://localhost:3000/shorts/",
@@ -376,6 +462,50 @@ export default {
         done: !todo.done,
       });
     },
+//==================================================================
+    async edit(new_real_link, id) {
+    
+      try {
+        await axios.post ("http://localhost:3000/edit",{
+          full: new_real_link,
+          id: id
+        })
+         
+        // // await axios.post("http://localhost:3000/shorts/",
+        // const newDoc = await addDoc(collection(db, "task"), {
+        //   // id: "",
+        //   real_link: this.real_link,
+        //   random_link: r,
+        //   // done: false
+        // });
+        // console.log(newDoc)
+        // await updateDoc(doc(db, "task", newDoc.id), { id: newDoc.id })
+        this.load();
+      } catch (e) {
+        console.log("Gagal menambahkan", e);
+      }
+    },
+
+    // async updateItem(id, customPath, realLink) {
+    //             console.log(customPath)
+    //             console.log(realLink)
+    //             if (this.newCustomPath == '') {
+    //                 this.newCustomPath = customPath.replace("http://sew.ey:5173/")
+    //             }
+    //             if (this.newRealLink == '') {
+    //                 this.newRealLink = realLink
+    //             }
+    //             const res = await axios.post(iphost + "/api/update", {
+    //                 newCustomPath: this.newCustomPath,
+    //                 newRealLink: this.newRealLink,
+    //                 id: id
+    //             })
+    //             this.links = [];
+    //             this.getLinks()
+    //             this.newCustomPath = ''
+    //             this.newRealLink = ''
+    //         },
+    
     async load() {
       try {
         axios.get("http://localhost:3000/shorts").then((res) => {
@@ -394,3 +524,4 @@ export default {
 };
 </script>
 
+ 
