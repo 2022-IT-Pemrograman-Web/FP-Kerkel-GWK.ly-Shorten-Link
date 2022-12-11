@@ -207,7 +207,7 @@
             </span>
         </div>
         <div class="mt-6 w-fit mx-auto">
-            <img src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe" class="rounded-full w-28 " alt="profile picture" srcset="">
+            <img src="../assets/goan.jpg" class="rounded-full w-28 " alt="profile picture" srcset="">
         </div>
 
         <div class="mt-8 ">
@@ -234,7 +234,7 @@
             </span>
         </div>
         <div class="mt-6 w-fit mx-auto">
-            <img src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe" class="rounded-full w-28 " alt="profile picture" srcset="">
+            <img src="../assets/krisna.jpg" class="rounded-full w-28 " alt="profile picture" srcset="">
         </div>
 
         <div class="mt-8 ">
@@ -261,7 +261,7 @@
             </span>
         </div>
         <div class="mt-6 w-fit mx-auto">
-            <img src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe" class="rounded-full w-28 " alt="profile picture" srcset="">
+            <img src="../assets/wika.jpg" class="rounded-full w-28 " alt="profile picture" srcset="">
         </div>
 
         <div class="mt-8 ">
