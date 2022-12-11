@@ -94,7 +94,7 @@ app.delete("/shorts/:id", (req, res) => {
 })
 
 app.post("/shorts/", (req, res) => {
-  const real = req.body.real_link
+  const real = req.body.full
   const random = req.body.random_link
   console.log(real, random)
     try{
@@ -113,6 +113,43 @@ app.post("/shorts/", (req, res) => {
     }
 })
 
+app.put("/edit", async (req, res) => {  
+const new_real_link = req.body.new_real_link
+const id = req.body.id
+const docRef = doc(db, "shorten_test", id)
+
+try {
+  await updateDoc(docRef, {
+    full: new_real_link
+  })
+  res.send({ message: "Succesfully edited" })
+  }
+  catch (err) {
+      console.log(err)
+      res.send(err)
+  }
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+// app.post("/api/update", async (req, res) => {
+
+//   const newCustomPath = req.body.newCustomPath
+//   const newRealLink = req.body.newRealLink
+//   const id = req.body.id
+//   const docRef = doc(db, "links", id)
+
+//   try {
+//       await updateDoc(docRef, {
+//           customPath: "http://sew.ey:5173/" + newCustomPath,
+//           realLink: newRealLink
+//       })
+//       res.send({ message: "Succesfully edited" })
+//   }
+//   catch (err) {
+//       console.log(err)
+//       res.send(err)
+//   }
+// })

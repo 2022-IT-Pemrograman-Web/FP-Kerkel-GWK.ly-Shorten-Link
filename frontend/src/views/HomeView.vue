@@ -276,7 +276,7 @@
               >
               <br/>
                 <div class="todo-content text-green-400">
-                  http://GWK.ly:5173/{{ todo.short }}
+                  http://localhost:5173/direct/{{ todo.short }}
                 </div>
                 <div class="todo-content text-red-400">
                   {{ todo.full }}
@@ -466,7 +466,7 @@ export default {
     async edit(new_real_link, id) {
     
       try {
-        await axios.post ("http://localhost:3000/edit",{
+        await axios.put ("http://localhost:3000/edit",{
           full: new_real_link,
           id: id
         })
@@ -482,7 +482,7 @@ export default {
         // await updateDoc(doc(db, "task", newDoc.id), { id: newDoc.id })
         this.load();
       } catch (e) {
-        console.log("Gagal menambahkan", e);
+        console.log("Gagal mengedit", e);
       }
     },
 
